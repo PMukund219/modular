@@ -14,13 +14,23 @@
 
 import max.experimental.functional as F
 from max.experimental.tensor import Tensor
+from pathlib import Path
+from max.dtype import DType
+from max.driver import CPU , Accelerator
 
-x = Tensor([[-2.0, -1.0, 0.0], [1.0, 2.0, 3.0]])
 
-relu_output = F.relu(x)
-sigmoid_output = F.sigmoid(x)
-tanh_output = F.tanh(x)
 
-print(f"ReLU: {relu_output}")
-print(f"Sigmoid: {sigmoid_output}")
-print(f"Tanh: {tanh_output}")
+mojo_kernel_path = Path(__file__).parent.parent.parent.parent.parent.parent / "max" / "kernels" / "src" / "custom"
+
+
+a = Tensor([[1.0, 2.0, 3.0]], dtype=DType.float32, device=Accelerator())
+b = Tensor([[4.0], [5.0], [6.0]], dtype=DType.float32, device=Accelerator())
+result = F.custom(
+    "matmul2",
+    device=a.device,
+    values=[a, b],
+    out_types=[a.type],
+    custom_extensions=mojo_kernel_path
+)[0]
+
+print(f"Custom Matrix Multiplication Result: {result}")
