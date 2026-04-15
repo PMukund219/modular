@@ -80,3 +80,11 @@ struct Conv2d:
         #     _conv2d_gpu(output, input, weight, ctx)
         else:
             raise Error("No known target: ", target)
+
+
+
+# resources 
+#https://medium.com/@abhishekjainindore24/all-about-convolutions-kernels-features-in-cnn-c656616390a1
+#https://www.geeksforgeeks.org/computer-vision/apply-a-2d-convolution-operation-in-pytorch/
+#https://ulhpc-tutorials.readthedocs.io/en/latest/cuda/exercises/convolution/
+#
